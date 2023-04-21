@@ -1,7 +1,3 @@
-#problema con riavvio del broker: zookeeper non rileva subito la chiusura del vecchio
-#broker e quindi non permette di avviare il nuovo, dando errore di nodo già esistente
-# Per il resto funziona tutto al primo avvio, per i successivi avvii, aspettare il
-#caricamento corretto di zookeeper e poi startare il broker
 version: '3.9'
 services:
 
