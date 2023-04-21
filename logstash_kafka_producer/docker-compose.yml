@@ -1,5 +1,7 @@
-# docker-compose from https://developer.confluent.io/quickstart/kafka-docker/
-
+#problema con riavvio del broker: zookeeper non rileva subito la chiusura del vecchio
+#broker e quindi non permette di avviare il nuovo, dando errore di nodo già esistente
+# Per il resto funziona tutto al primo avvio, per i successivi avvii, aspettare il
+#caricamento corretto di zookeeper e poi startare il broker
 version: '3.9'
 services:
 
@@ -24,7 +26,7 @@ services:
     depends_on:
       - zookeeper
     environment:
-      #KAFKA_BROKER_ID: 1
+      KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
@@ -33,7 +35,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   #-------------------------------#
-  # 🖥️ Kakfa UI         #
+  # 🖥️ Kakfa UI                  #
   #-------------------------------#
   kafka-ui:
     image: provectuslabs/kafka-ui
